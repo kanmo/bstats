@@ -37,6 +37,22 @@ playersmenu()
 
     read -p " (1 to ${n}) ==> " $opt num
 
+    ## Check the user entry is valid
+    case $num in
+        [qQ0] | "" ) return ;; ## q, Q or 0 "" exists
+        *[!0-9]* | 0*)
+            printf "\aInvalid response: %s\n" "$num" >&2
+            return 1
+            ;;
+    esac
+    echo
+
+    if (( $num >= ${#players[@]} )); then
+        printf "\aInvalid response: %s\n" "$num" >&2
+        return 1
+    fi
+
+
 }
 
 # TODO main code
